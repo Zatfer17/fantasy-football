@@ -15,6 +15,11 @@ def main():
 
     notEnded = 0
 
+    print(players["P"]["TOP"])
+    print(players["D"]["TOP"])
+    print(players["C"]["TOP"])
+    print(players["A"]["TOP"])
+
     while notEnded < (numSlots * numPlayers):
         for name in names:
             if notEnded < components["P"] * numPlayers:

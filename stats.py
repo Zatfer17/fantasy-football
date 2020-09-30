@@ -1,4 +1,5 @@
 import pandas as pd
+import values
 
 def loadStats(path):
     players = pd.read_excel(path)
@@ -9,51 +10,59 @@ def loadStats(path):
     roles = ["P", "D", "C", "A"]
     tiers = ["LOW", "MID", "TOP"]
 
+    indexes = values.buildAllIndexes()
+
     for role in roles:
         stats[role] = {}
         for tier in tiers:
             stats[role][tier] = []
 
     for row in players.iterrows():
+
+        if row[1][1] not in list(indexes.keys()):
+            value = 0
+        else:
+            value = indexes[row[1][1]]
+
         if "P" in row[1][0]:
-            if row[1][3] >= 94:
-                stats["P"]["TOP"].append([row[1][1], row[1][2], row[1][3], row[1][4] * 2, row[1][3]/row[1][4] / 2])
+            if value >= 87:
+                stats["P"]["TOP"].append([row[1][1], row[1][2], value, row[1][4] * 2, value/row[1][4] / 2])
                 band = "TOP"
-            elif row[1][3] >= 65:
-                stats["P"]["MID"].append([row[1][1], row[1][2], row[1][3], row[1][4], row[1][3]/row[1][4]])
+            elif value >= 65:
+                stats["P"]["MID"].append([row[1][1], row[1][2], value, row[1][4], value/row[1][4]])
                 band = "MID"
             else:
-                stats["P"]["LOW"].append([row[1][1], row[1][2], row[1][3], 1, row[1][3]])
+                stats["P"]["LOW"].append([row[1][1], row[1][2], value, 1, value])
                 band = "LOW"
         elif "D" in row[1][0]:
-            if row[1][3] >= 94:
-                stats["D"]["TOP"].append([row[1][1], row[1][2], row[1][3], int(row[1][4] * 1.5), row[1][3]/ int(row[1][4] * 1.5)])
+            if value >= 85:
+                stats["D"]["TOP"].append([row[1][1], row[1][2], value, int(row[1][4] * 1.5), value/ int(row[1][4] * 1.5)])
                 band = "TOP"
-            elif row[1][3] >= 75:
-                stats["D"]["MID"].append([row[1][1], row[1][2], row[1][3], row[1][4], row[1][3]/row[1][4]])
+            elif value >= 75:
+                stats["D"]["MID"].append([row[1][1], row[1][2], value, row[1][4], value/row[1][4]])
                 band = "MID"
             else:
-                stats["D"]["LOW"].append([row[1][1], row[1][2], row[1][3], 1, row[1][3]])
+                stats["D"]["LOW"].append([row[1][1], row[1][2], value, 1, value])
                 band = "LOW"
         elif "C" in row[1][0]:
-            if row[1][3] >= 85:
-                stats["C"]["TOP"].append([row[1][1], row[1][2], row[1][3], row[1][4] * 3, row[1][3]/row[1][4] / 3])
+            if value >= 91:
+                stats["C"]["TOP"].append([row[1][1], row[1][2], value, row[1][4] * 3, value/row[1][4] / 3])
                 band = "TOP"
-            elif row[1][3] >= 75:
-                stats["C"]["MID"].append([row[1][1], row[1][2], row[1][3], row[1][4], row[1][3]/row[1][4]])
+            elif value >= 75:
+                stats["C"]["MID"].append([row[1][1], row[1][2], value, row[1][4], value/row[1][4]])
                 band = "MID"
             else:
-                stats["C"]["LOW"].append([row[1][1], row[1][2], row[1][3], 1, row[1][3]])
+                stats["C"]["LOW"].append([row[1][1], row[1][2], value, 1, value])
                 band = "LOW"
         else:
-            if row[1][3] >= 94:
-                stats["A"]["TOP"].append([row[1][1], row[1][2], row[1][3], row[1][4] * 4, row[1][3]/row[1][4] / 4])
+            if value >= 85:
+                stats["A"]["TOP"].append([row[1][1], row[1][2], value, row[1][4] * 4, value/row[1][4] / 4])
                 band = "TOP"
-            elif row[1][3] >= 70:
-                stats["A"]["MID"].append([row[1][1], row[1][2], row[1][3], row[1][4], row[1][3]/row[1][4]])
+            elif value >= 70:
+                stats["A"]["MID"].append([row[1][1], row[1][2], value, row[1][4], value/row[1][4]])
                 band = "MID"
             else:
-                stats["A"]["LOW"].append([row[1][1], row[1][2], row[1][3], 1, row[1][3]])
+                stats["A"]["LOW"].append([row[1][1], row[1][2], value, 1, value])
                 band = "LOW"
 
         playersList[row[1][1]] = [row[1][0], band]
