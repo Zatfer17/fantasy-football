@@ -20,7 +20,7 @@ def loadStats(path):
     for row in players.iterrows():
 
         if row[1][1] not in list(indexes.keys()):
-            value = 0
+            value = row[1][3]
         else:
             value = indexes[row[1][1]]
 

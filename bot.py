@@ -3,11 +3,11 @@ import auction
 
 def main():
 
-    credits = 500
+    credits = 300
     names = ["TEO", "STE"]
     you = "TEO"
-    budgetAllocation = {"P": 50, "D": 50, "C": 130, "A": 270}
-    components = {"P": 0, "D": 1, "C": 1, "A": 1}
+    budgetAllocation = {"P": 50, "D": 55, "C": 95, "A": 300}
+    components = {"P": 0, "D": 0, "C": 0, "A": 6}
     numSlots = components["P"] + components["D"] + components["C"] + components["A"]
     numPlayers = len(names)
     playersList, players, avgs = stats.loadStats("data/listone.xlsx")
